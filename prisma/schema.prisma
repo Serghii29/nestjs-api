@@ -14,8 +14,27 @@ model User {
   id Int @id @default(autoincrement())
   createdAt DateTime @default(now())
   
-  firstName String
-  LastName String?
+  firstName String?
+  lastName String?
+  salt String
   email String @unique
-  hash String
+  hashed_password String
+  tokens Token[]
+  meal Meal[]
+}
+
+model Token {
+  id Int @id @default(autoincrement())
+
+  refreshToken String
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+}
+
+model Meal {
+  id Int @id @default(autoincrement())
+
+  createdByUser Boolean
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }
