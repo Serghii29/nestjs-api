@@ -21,6 +21,8 @@ model User {
   hashed_password String
   tokens Token[]
   meal Meal[]
+
+  @@map("users")
 }
 
 model Token {
@@ -29,6 +31,9 @@ model Token {
   refreshToken String
   userId Int
   user User @relation(fields: [userId], references: [id])
+
+  @@map("tokens")
+
 }
 
 model Meal {
@@ -37,4 +42,6 @@ model Meal {
   createdByUser Boolean
   userId Int
   user User @relation(fields: [userId], references: [id])
+
+  @@map("meals")
 }
