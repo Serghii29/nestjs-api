@@ -1,12 +1,13 @@
-import { Controller, Post } from '@nestjs/common';
-import { UsersService } from './users.service';
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Request } from 'express';
+import { JwtGuard } from 'src/auth/guard';
+// import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
-
-  @Post('add')
-  create() {
-    return this.usersService.create();
+  @UseGuards(JwtGuard)
+  @Get('me')
+  getMe(@Req() req: Request) {
+    return req.user;
   }
 }
